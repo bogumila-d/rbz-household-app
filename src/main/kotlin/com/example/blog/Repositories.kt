@@ -1,13 +1,13 @@
 package com.example.blog
 
-import org.springframework.data.repository.CrudRepository
+import org.springframework.data.mongodb.repository.MongoRepository
 
-interface ArticleRepository : CrudRepository<Article, Long> {
+interface ArticleRepository : MongoRepository<Article, Long> {
 	fun findBySlug(slug: String): Article?
 	fun findAllByOrderByAddedAtDesc(): Iterable<Article>
 }
 
-interface UserRepository : CrudRepository<User, Long> {
+interface UserRepository : MongoRepository<User, Long> {
 	fun findByLogin(login: String): User?
 }
 

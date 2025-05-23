@@ -19,7 +19,7 @@
 		<section>
 			<header class="article-header">
 				<h2 class="article-title"><a href="/article/{{slug}}">{{title}}</a></h2>
-				<div class="article-meta">By  <strong>{{author.firstname}}</strong>, on <strong>{{addedAt}}</strong></div>
+				<div class="article-meta">By  <strong>Bogu</strong>, on <strong>{{addedAt}}</strong></div>
 			</header>
 			<div class="article-headline">
 				{{headline}}
@@ -27,5 +27,28 @@
 		</section>
 	{{/articles}}
 </div>
+
+<h1>Submit a New Article</h1>
+  <form action="/addArticles" method="POST">
+    <label for="title">Title:</label><br>
+    <input type="text" id="title" name="title" required><br><br>
+
+    <label for="headline">Headline:</label><br>
+    <input type="text" id="headline" name="headline" required><br><br>
+
+    <label for="content">Content:</label><br>
+    <textarea id="content" name="content" rows="5" cols="40" required></textarea><br><br>
+
+    <label for="slug">Slug:</label><br>
+    <input type="text" id="slug" name="slug" required><br><br>
+
+    <label for="addedAt">Date Added (ISO 8601):</label><br>
+    <input type="datetime-local" id="addedAt" name="addedAt" required><br><br>
+
+    <label for="firstname">Author firstname:</label><br>
+    <input type="text" id="firstname" name="firstname" required><br><br>
+
+    <button type="submit">Submit Article</button>
+  </form>
 
 {{> footer}}

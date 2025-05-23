@@ -1,22 +1,23 @@
 package com.example.blog
 
 import java.time.LocalDateTime
-import jakarta.persistence.*
+import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.mapping.Document
 
-@Entity
+@Document(collection = "articles")
 class Article(
+		@Id val id: String? = null,
 		var title: String,
 		var headline: String,
 		var content: String,
-		@ManyToOne var author: User,
+		var firstname: String? = null,
 		var slug: String = title.toSlug(),
-		var addedAt: LocalDateTime = LocalDateTime.now(),
-		@Id @GeneratedValue var id: Long? = null)
+		var addedAt: LocalDateTime = LocalDateTime.now())
 
-@Entity
+@Document(collection = "users")
 class User(
+		@Id val id: String? = null,
 		var login: String,
 		var firstname: String,
 		var lastname: String,
-		var description: String? = null,
-		@Id @GeneratedValue var id: Long? = null)
+		var description: String? = null)

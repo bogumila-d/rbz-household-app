@@ -6,7 +6,11 @@ import org.springframework.ui.Model
 import org.springframework.ui.set
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.server.ResponseStatusException
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 @Controller
 class HtmlController(private val repository: ArticleRepository,
@@ -31,12 +35,34 @@ class HtmlController(private val repository: ArticleRepository,
 		return "article"
 	}
 
+	@PostMapping("/addArticles")
+	fun submitArticle(
+		@RequestParam title: String,
+		@RequestParam headline: String,
+		@RequestParam content: String,
+		@RequestParam slug: String,
+		@RequestParam addedAt: String,
+		@RequestParam firstname: String
+	): String {
+		val formatter = DateTimeFormatter.ISO_DATE_TIME
+		val article = Article(
+			title = title,
+			headline = headline,
+			content = content,
+			slug = slug,
+			addedAt = LocalDateTime.parse(addedAt, formatter),
+			firstname = firstname
+		)
+		repository.save(article)
+		return "redirect:/"
+	}
+
 	fun Article.render() = RenderedArticle(
 			slug,
 			title,
 			headline,
 			content,
-			author,
+			firstname,
 			addedAt.format()
 	)
 
@@ -45,7 +71,7 @@ class HtmlController(private val repository: ArticleRepository,
 			val title: String,
 			val headline: String,
 			val content: String,
-			val author: User,
+			var firstname: String? = null,
 			val addedAt: String)
 
 }

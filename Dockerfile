@@ -1,5 +1,5 @@
 # Use an official OpenJDK image to run the application
-FROM openjdk:17-jdk-slim
+FROM openjdk:17-jdk
 
 # Set environment variable for Java
 ENV JAVA_OPTS=""
@@ -9,6 +9,8 @@ WORKDIR /app
 
 # Copy the built JAR into the container
 COPY build/libs/*.jar blog-0.0.1-SNAPSHOT.jar
+
+RUN apt-get update && apt-get install -y ca-certificates
 
 # Expose the application's port
 EXPOSE 8080
